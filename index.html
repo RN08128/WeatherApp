@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+    </style>
+</head>
+
+<body class="sunny">
+    <h1>Weather App</h1>
+    <div id="menu-box" class="sunny">
+        <div id="input-box">
+            <input type="text" placeholder="Nome da cidade" id="cidade-input">
+            <button type="submit" id="buscar-button">Buscar</button>
+        </div>
+        <div id="weather-box">
+            <img src="https://openweathermap.org/img/wn/01d@2x.png" alt="Ícone do Clima" id="weather-icon">
+            <h2 id="city-name">Brazil, BR</h2>
+        </div>
+        <div id="weather-info">
+            <h2 id="temperature">35°C</h2>
+            <p id="weather-description">céu limpo</p>
+        </div>
+        <div id="weather-details-box">
+            <div class="weather-details">
+                <p>Vento</p>
+                <span id="wind">6 km/h</span>
+            </div>
+            <div class="weather-details">
+                <p>Humidade</p>
+                <span id="humidity">30%</span>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

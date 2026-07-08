@@ -1,0 +1,165 @@
+@charset "UTF-8";
+
+html {
+    font-family: 'Quicksand';
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: rgb(177, 177, 177);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    scrollbar-width: none;
+
+    transition-duration: 0.8s;
+    transition-property: all;
+    transition-delay: 0;
+    transform-style: ease;
+}
+
+body.sunny {
+    background: #2C3E50;
+background: linear-gradient(135deg, rgba(44, 62, 80, 0.74) -10%, rgba(1, 194, 246, 1) 60%, rgba(245, 175, 25, 1) 115%);
+}
+
+body.rainy {
+    background: linear-gradient(135deg, #1f242d 0%, #3d485a 50%, #1a2536 100%);
+}
+
+body.cloudy {
+    background: linear-gradient(135deg, #2b323f 0%, #757f9a 50%, #b5bdc8 100%);
+}
+
+body.night {
+    background: linear-gradient(135deg, #050b14 0%, #101f32 50%, #1b2d42 100%);
+}
+
+body>h1 {
+    margin-top: 70px;
+    color: white;
+}
+
+#menu-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    height: 350px;
+    gap: 10px;
+    border-radius: 20px;
+    background-color: rgb(63, 189, 147);
+    color: rgb(26, 26, 26);
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+#menu-box.sunny {
+    background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
+    color: #ffffff;
+}
+
+#menu-box.rainy {
+    background: linear-gradient(135deg, #8493b3 0%, #2d78f1 100%);
+    color: #ffffff;
+}
+
+#menu-box.cloudy {
+    background: linear-gradient(135deg, #757f9a 0%, #d7dde8 100%);
+    color: #333333;
+}
+
+#menu-box.night {
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    color: #ffffff;
+}
+
+#input-box {
+    text-align: center;
+    margin-top: 25px;
+}
+
+#cidade-input {
+    margin: 10px 0 0 0;
+    width: 160px;
+    height: 20px;
+    border-radius: 10px;
+    border: none;
+    padding: 6px 5px;
+    background-color: rgba(0, 0, 0, 0.14);
+    color: rgb(240, 240, 240);
+}
+
+#cidade-input::placeholder {
+    color: rgba(255, 255, 255, 0.603);
+    border: none;
+}
+
+#cidade-input:active {
+    color: white;
+    border: none;
+}
+
+#buscar-button {
+    width: 70px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.14);
+    height: 30px;
+}
+
+#buscar-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#weather-info>h2,
+p {
+    margin: 8px;
+}
+
+#weather-info {
+    margin: 20px;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.06);
+}
+
+#weather-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.06);
+    border-radius: 15px;
+}
+
+#weather-box>h2 {
+    margin: 0;
+    padding: 0 10px 0 0;
+}
+
+#weather-box>img {
+    width: 50px;
+}
+
+#weather-details-box {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.weather-details {
+    margin: 0;
+    padding: 5px;
+    width: 85px;
+    background-color: rgba(0, 0, 0, 0.06);
+    border-radius: 15px;
+}
+
+.weather-details>p {
+    margin: 0;
+}
