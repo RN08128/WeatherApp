@@ -2,6 +2,11 @@
 
 html {
     font-family: 'Quicksand';
+
+    transition-duration: 1s;
+    transition-property: all;
+    transition-delay: 0;
+    transform-style: ease;
 }
 
 body {
@@ -14,21 +19,20 @@ body {
     align-items: center;
     flex-direction: column;
     gap: 20px;
-    scrollbar-width: none;
-
-    transition-duration: 0.8s;
+    overflow-y: hidden;
+    transition-duration: 1s;
     transition-property: all;
-    transition-delay: 0;
+    transition-delay: 0.5s;
     transform-style: ease;
 }
 
 body.sunny {
-    background: #2C3E50;
-background: linear-gradient(135deg, rgba(44, 62, 80, 0.74) -10%, rgba(1, 194, 246, 1) 60%, rgba(245, 175, 25, 1) 115%);
+    background: #0f172a; /* Cor de segurança escura para o topo */
+    background: linear-gradient(135deg, #1e293b 0%, #005bea 50%, #00c6fb 100%);
 }
 
 body.rainy {
-    background: linear-gradient(135deg, #1f242d 0%, #3d485a 50%, #1a2536 100%);
+    background: linear-gradient(135deg, #212733 0%, #4e6b99 50%, #335992 80%);
 }
 
 body.cloudy {
@@ -48,8 +52,8 @@ body>h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 400px;
-    height: 350px;
+    width: 420px;
+    height: 380px;
     gap: 10px;
     border-radius: 20px;
     background-color: rgb(63, 189, 147);
@@ -58,7 +62,7 @@ body>h1 {
 }
 
 #menu-box.sunny {
-    background: linear-gradient(135deg, #00c6fb 0%, #005bea 100%);
+    background: linear-gradient(20deg, #00c6fb 0%, #005bea 100%);
     color: #ffffff;
 }
 
@@ -122,9 +126,14 @@ p {
 }
 
 #weather-info {
-    margin: 20px;
+    margin: 10px;
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0.06);
+
+    transition-duration: 1s;
+    transition-property: all;
+    transition-delay: 0;
+    transform-style: ease;
 }
 
 #weather-box {
@@ -162,4 +171,49 @@ p {
 
 .weather-details>p {
     margin: 0;
+}
+
+#cards-container{
+    display: flex;
+    justify-content: space-around;
+    width: 92%;
+    margin-top: 5px;
+}
+
+.wkcards{
+    border-radius: 10px;
+    width: 80px;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    transition: all 0.2s ease-in-out;
+}
+
+.wkcards:hover{
+    border: 1px solid white;
+    height: 66px;
+    width: 84px;
+    transform: translateY(-6px);
+}
+
+.wkcards > img{
+    width: 40px;
+    height: 40px;
+    margin: 0 0 5px 0;
+}
+
+.cardname{
+    position: absolute;
+    transform: translateY(-23px);
+}
+
+.cardtemp{
+    position: absolute;
+    transform: translateY(20px);
 }

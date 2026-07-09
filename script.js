@@ -15,32 +15,37 @@ const errorBox = document.getElementById("error-box");
 const errorMessage = document.getElementById("error-message");
 const weatherBox = document.getElementById("weather-box");
 
+const weekContainer = document.getElementById("cards-container");
+
 const clicksnd = document.createElement("audio");
 clicksnd.src = "sound/clicksound.mp3";
 
 async function checkWeather(city) {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=pt_br`;
+    const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric&lang=pt_br`;
 
     try {
         const response = await fetch(url)
 
         const data = await response.json();
-        updateWeatherTheme(data);
+        const currentData = data.list[0];
+        updateWeatherTheme(currentData);
         console.log(data);
 
-        weatherIcon.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+        weatherIcon.src = `https://openweathermap.org/img/wn/${currentData.weather[0].icon}@2x.png`
 
-        cityName.innerText = `${data.name}, ${data.sys.country}`;
+        cityName.innerText = `${data.city.name}, ${data.city.country}`;
 
-        let temp = data.main.temp;
+        let temp = currentData.main.temp;
         temperature.innerText = temp.toFixed(0) + "°C";
 
-        weatherDescription.innerText = `${data.weather[0].description}`;
+        weatherDescription.innerText = `${currentData.weather[0].description}`;
 
-        humidity.innerText = `${data.main.humidity}%`;
+        humidity.innerText = `${currentData.main.humidity}%`;
 
-        let windvalue = (data.wind.speed) * 3.6;
+        let windvalue = (currentData.wind.speed) * 3.6;
         wind.innerText = windvalue.toFixed(1) + " km/h";
+
+        displayForecast(data.list);
 
         cityInput.value = "";
         cityInput.focus;
@@ -48,15 +53,41 @@ async function checkWeather(city) {
         console.error("Erro ao buscar dados do clima", error)
         alert("Erro ao buscar! Verifique a conexão ou tente novamente mais tarde")
 
-        weatherIcon.src = `https://openweathermap.org/img/wn/01d@2x.png`
-        cityName.innerText = `Brasil, BR`;
-        temperature.innerText = "35°C";
-        weatherDescription.innerText = `céu limpo`;
-        humidity.innerText = `30%`;
-        wind.innerText = "6 km/h";
-        menuBox.classList.add("sunny");
-        document.body.classList.add("sunny");
+        // weatherIcon.src = `https://openweathermap.org/img/wn/01d@2x.png`
+        // cityName.innerText = `Brasil, BR`;
+        // temperature.innerText = "35°C";
+        // weatherDescription.innerText = `céu limpo`;
+        // humidity.innerText = `30%`;
+        // wind.innerText = "6 km/h";
+        // menuBox.classList.add("sunny");
+        // document.body.classList.add("sunny");
     }
+}
+
+function displayForecast(forecastList) {
+    weekContainer.innerHTML = "";
+
+    const dailyData = forecastList.filter(item => item.dt_txt.includes("12:00:00"));
+
+    dailyData.slice(0, 4).forEach(day => {
+
+        const date = new Date(day.dt_txt);
+        
+        let dayName = date.toLocaleDateString("pt-BR", { weekday: "short" });
+        dayName = dayName.replace(".", "");
+
+        // Criar o HTML do card
+        const cardHTML = `
+            <div class="wkcards">
+                <span class="cardname">${dayName}</span>
+                <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png" alt="Clima-imagem">
+                <span class="cardtemp">${day.main.temp.toFixed(0)}°C</span>
+            </div>
+        `;
+
+        // Injetar o card dentro do container do HTML
+        weekContainer.innerHTML += cardHTML;
+    });
 }
 
 function updateWeatherTheme(data) {
