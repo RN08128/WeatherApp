@@ -28,7 +28,8 @@ body {
 }
 
 body.sunny {
-    background: #0f172a; /* Cor de segurança escura para o topo */
+    background: #0f172a;
+    /* Cor de segurança escura para o topo */
     background: linear-gradient(135deg, #1e293b 0%, #005bea 50%, #00c6fb 100%);
 }
 
@@ -174,14 +175,14 @@ p {
     margin: 0;
 }
 
-#cards-container{
+#cards-container {
     display: flex;
     justify-content: space-around;
     width: 92%;
     margin-top: 5px;
 }
 
-.wkcards{
+.wkcards {
     border-radius: 10px;
     width: 80px;
     height: 60px;
@@ -196,25 +197,49 @@ p {
     transition: all 0.2s ease-in-out;
 }
 
-.wkcards:hover{
+.wkcards:hover {
     border: 1px solid white;
     height: 66px;
     width: 84px;
     transform: translateY(-6px);
 }
 
-.wkcards > img{
+.wkcards>img {
     width: 40px;
     height: 40px;
     margin: 0 0 5px 0;
 }
 
-.cardname{
+.cardname {
     position: absolute;
     transform: translateY(-23px);
 }
 
-.cardtemp{
+.cardtemp {
     position: absolute;
     transform: translateY(20px);
+}
+
+@media (max-width: 500px) {
+    #menu-box {
+        width: 300px;
+        height: 400px;
+        gap: 10px;
+    }
+
+    #weather-details-box {
+        float: right;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #input-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+        gap: 10px;
+    }
 }
