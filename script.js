@@ -48,7 +48,7 @@ async function checkWeather(city) {
         displayForecast(data.list);
 
         cityInput.value = "";
-        cityInput.focus;
+        cityInput.focus();
     } catch (error) {
         console.error("Erro ao buscar dados do clima", error)
         alert("Erro ao buscar! Verifique a conexão ou tente novamente mais tarde")
