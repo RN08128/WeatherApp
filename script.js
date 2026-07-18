@@ -8,8 +8,9 @@ const cityName = document.getElementById("city-name");
 const temperature = document.getElementById("temperature");
 const weatherIcon = document.getElementById("weather-icon");
 const weatherDescription = document.getElementById("weather-description");
-const wind = document.getElementById("wind");
-const humidity = document.getElementById("humidity");
+
+const weatherDetails = document.getElementById("weather-details-box");
+const infoBox = document.getElementById("weather-info");
 
 const errorBox = document.getElementById("error-box");
 const errorMessage = document.getElementById("error-message");
@@ -19,6 +20,9 @@ const weekContainer = document.getElementById("cards-container");
 
 const clicksnd = document.createElement("audio");
 clicksnd.src = "sound/clicksound.mp3";
+
+infoBox.style.display = 'none';
+
 
 async function checkWeather(city) {
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric&lang=pt_br`;
@@ -31,12 +35,26 @@ async function checkWeather(city) {
         updateWeatherTheme(currentData);
         console.log(data);
 
+        menuBox.classList.add("active");
+
         weatherIcon.src = `https://openweathermap.org/img/wn/${currentData.weather[0].icon}@2x.png`
 
         cityName.innerText = `${data.city.name}, ${data.city.country}`;
 
         let temp = currentData.main.temp;
         temperature.innerText = temp.toFixed(0) + "°C";
+
+        document.getElementById("weather-details-box").innerHTML = `<div class="weather-details">
+                <p>Vento</p>
+                <span id="wind"></span>
+            </div>
+            <div class="weather-details">
+                <p>Humidade</p>
+                <span id="humidity"></span>
+            </div>`;
+
+        const wind = document.getElementById("wind");
+        const humidity = document.getElementById("humidity");
 
         weatherDescription.innerText = `${currentData.weather[0].description}`;
 
@@ -45,22 +63,35 @@ async function checkWeather(city) {
         let windvalue = (currentData.wind.speed) * 3.6;
         wind.innerText = windvalue.toFixed(1) + " km/h";
 
+        weekContainer.style.display = "flex";
+        weatherBox.style.display = "flex";
+        weatherDetails.style.display = "flex";
+
+        infoBox.style.display = "block";
+
         displayForecast(data.list);
 
         cityInput.value = "";
         cityInput.focus();
-    } catch (error) {
-        console.error("Erro ao buscar dados do clima", error)
-        alert("Erro ao buscar! Verifique a conexão ou tente novamente mais tarde")
 
-        // weatherIcon.src = `https://openweathermap.org/img/wn/01d@2x.png`
-        // cityName.innerText = `Brasil, BR`;
-        // temperature.innerText = "35°C";
-        // weatherDescription.innerText = `céu limpo`;
-        // humidity.innerText = `30%`;
-        // wind.innerText = "6 km/h";
-        // menuBox.classList.add("sunny");
-        // document.body.classList.add("sunny");
+    } catch (error) {
+        menuBox.classList.remove("active");
+        console.error("Erro ao buscar dados do clima", error);
+        alert("Erro ao buscar! Verifique a conexão ou tente novamente mais tarde");
+
+        weatherBox.style.display = "none";
+        weatherDetails.style.display = "none";
+        weekContainer.style.display = "none";
+        infoBox.style.display = 'none';
+        weatherIcon.src = "";
+        cityName.innerText = "";
+        temperature.innerText = "";
+        weatherDescription.innerText = "";
+        humidity.innerText = "";
+        wind.innerText = "";
+        menuBox.classList.add("sunny");
+        document.body.classList.add("sunny");
+        document.getElementById("weather-details-box").innerHTML = "";
     }
 }
 
@@ -72,7 +103,7 @@ function displayForecast(forecastList) {
     dailyData.slice(0, 4).forEach(day => {
 
         const date = new Date(day.dt_txt);
-        
+
         let dayName = date.toLocaleDateString("pt-BR", { weekday: "short" });
         dayName = dayName.replace(".", "");
 
@@ -131,9 +162,11 @@ searchBtn.addEventListener("click", () => {
     clicksnd.play();
     if (cityInput.value.trim() !== "") {
         checkWeather(cityInput.value);
+        
     } else {
         alert("Insira um nome válido!");
     }
+
 });
 
 cityInput.addEventListener("keypress", (event) => {
@@ -144,4 +177,5 @@ cityInput.addEventListener("keypress", (event) => {
         clicksnd.play();
         alert("Insira um nome válido!");
     }
+
 });

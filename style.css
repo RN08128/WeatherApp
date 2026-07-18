@@ -23,7 +23,6 @@ body {
     overflow-y: hidden;
     transition-duration: 1s;
     transition-property: all;
-    transition-delay: 0.5s;
     transform-style: ease;
 }
 
@@ -54,13 +53,27 @@ body>h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 420px;
-    height: 380px;
-    gap: 10px;
+    gap: 5px;
+    overflow-y: hidden;
+    max-width: 346px;
+    max-height: 60px;
     border-radius: 20px;
     background-color: rgb(63, 189, 147);
     color: rgb(26, 26, 26);
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
+    
+    transition-duration: 1s;
+    transition-property: all;
+    transform-style: ease;
+}
+
+#menu-box.active{
+    max-height: 346px;
+}
+
+.menu-big{
+    width: 330px;
+    height: 374px;
 }
 
 #menu-box.sunny {
@@ -85,11 +98,18 @@ body>h1 {
 
 #input-box {
     text-align: center;
-    margin-top: 25px;
+    margin: 0 0 9px 0;
+}
+
+#input-box > img{
+    margin: 0 0 0 6px;
+    width: 30px;
+    height: 30px;
+    filter: invert();
+    transform: translateY(10px);
 }
 
 #cidade-input {
-    margin: 10px 0 0 0;
     width: 160px;
     height: 20px;
     border-radius: 10px;
@@ -97,6 +117,7 @@ body>h1 {
     padding: 6px 5px;
     background-color: rgba(0, 0, 0, 0.14);
     color: rgb(240, 240, 240);
+    outline: none;
 }
 
 #cidade-input::placeholder {
@@ -106,10 +127,14 @@ body>h1 {
 
 #cidade-input:active {
     color: white;
-    border: none;
+}
+
+#cidade-input::after{
+    border: 1px solid #005bea;
 }
 
 #buscar-button {
+    margin: 0 10px 0 0;
     width: 70px;
     border: none;
     border-radius: 10px;
@@ -160,7 +185,7 @@ p {
     justify-content: center;
     flex-wrap: nowrap;
     flex-direction: row;
-    gap: 30px;
+    gap: 25px;
 }
 
 .weather-details {
@@ -178,8 +203,9 @@ p {
 #cards-container {
     display: flex;
     justify-content: space-around;
-    width: 92%;
-    margin-top: 5px;
+    width: 94%;
+    margin: 5px 0 8px 0;
+    gap: 8px;
 }
 
 .wkcards {
@@ -194,30 +220,27 @@ p {
     align-items: center;
     text-align: center;
 
-    transition: all 0.2s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
 .wkcards:hover {
     border: 1px solid white;
     height: 66px;
     width: 84px;
-    transform: translateY(-6px);
+    transform: translateY(-4px);
 }
 
 .wkcards>img {
     width: 40px;
     height: 40px;
-    margin: 0 0 5px 0;
 }
 
-.cardname {
-    position: absolute;
-    transform: translateY(-23px);
+.cardname{
+    transform: translateY(8px);
 }
 
 .cardtemp {
-    position: absolute;
-    transform: translateY(20px);
+    transform: translateY(-9px);
 }
 
 @media (max-width: 500px) {

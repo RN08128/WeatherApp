@@ -13,30 +13,23 @@
 
 <body class="sunny">
     <h1>Weather App</h1>
-    <div id="menu-box" class="sunny">
+    <div id="menu-box" class="sunny deactive">
         <div id="input-box">
-            <input type="text" placeholder="Nome da cidade" id="cidade-input">
+            <img src="icons/pin.png" alt="">
+            <input type="text" placeholder="Nome da localização" id="cidade-input">
             <button type="submit" id="buscar-button">Buscar</button>
         </div>
-        <div id="weather-box">
-            <img src="https://openweathermap.org/img/wn/01d@2x.png" alt="Ícone do Clima" id="weather-icon">
-            <h2 id="city-name">Brazil, BR</h2>
+        <div id="weather-box" style="display: none;">
+            <img src="" alt="" id="weather-icon">
+            <h2 id="city-name"></h2>
         </div>
         <div id="weather-info">
-            <h2 id="temperature">35°C</h2>
-            <p id="weather-description">céu limpo</p>
+            <h2 id="temperature"></h2>
+            <p id="weather-description"></p>
         </div>
-        <div id="weather-details-box">
-            <div class="weather-details">
-                <p>Vento</p>
-                <span id="wind">6 km/h</span>
-            </div>
-            <div class="weather-details">
-                <p>Humidade</p>
-                <span id="humidity">30%</span>
-            </div>
+        <div id="weather-details-box" style="display: none;">
         </div>
-        <div id="cards-container">
+        <div id="cards-container" style="display: none;">
         </div>
     </div>
     <script src="script.js"></script>
