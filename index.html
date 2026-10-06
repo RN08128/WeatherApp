@@ -14,13 +14,14 @@
 <body class="sunny">
     <h1>Weather App</h1>
 
-    <!-- PAINEL LATERAL / INFERIOR DE HORÁRIOS -->
+    <!-- Painel de Busca -->
     <div id="side-time-panel" class="hidden">
         <div class="panel-header">
             <span class="panel-title">Horário</span>
             <span id="selected-time">12:00</span>
         </div>
-        
+
+        <!-- Slider de Horário -->
         <div class="slider-wrapper">
             <input type="range" id="time-slider" min="0" max="1" value="0" step="1">
             <div class="time-range-labels">
@@ -29,7 +30,7 @@
             </div>
         </div>
     </div>
-
+    <!-- Painel Lateral de Horários (Aparece quando a busca é feita) -->
     <div id="menu-box" class="sunny deactive">
         <div id="input-box">
             <img src="icons/pin.png" alt="">

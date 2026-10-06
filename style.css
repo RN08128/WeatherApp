@@ -225,9 +225,8 @@ body > h1 {
     transform: translateY(-4px);
 }
 
-/* =========================================================
-   PAINEL DE HORÁRIOS - PADRÃO (DESKTOP - VERTICAL À DIREITA)
-   ========================================================= */
+/*Painel Lateral de Horários (Aparece quando a busca é feita) */
+
 #side-time-panel {
     position: fixed;
     right: 25px;
@@ -319,9 +318,7 @@ body > h1 {
     opacity: 0.8;
 }
 
-/* =========================================================
-   PAINEL DE HORÁRIOS - MOBILE (HORIZONTAL NA PARTE INFERIOR)
-   ========================================================= */
+/* Painel Lateral de Horários - Responsividade */
 @media (max-width: 650px) {
     #side-time-panel {
         right: auto;
