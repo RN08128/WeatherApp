@@ -1,12 +1,8 @@
 @charset "UTF-8";
 
 html {
-    font-family: 'Quicksand';
-
-    transition-duration: 1s;
-    transition-property: all;
-    transition-delay: 0;
-    transform-style: ease;
+    font-family: 'Quicksand', sans-serif;
+    transition: all 1s ease;
 }
 
 body {
@@ -21,14 +17,11 @@ body {
     flex-direction: column;
     gap: 20px;
     overflow-y: hidden;
-    transition-duration: 1s;
-    transition-property: all;
-    transform-style: ease;
+    overflow-x: hidden;
+    transition: all 1s ease;
 }
 
 body.sunny {
-    background: #0f172a;
-    /* Cor de segurança escura para o topo */
     background: linear-gradient(135deg, #1e293b 0%, #005bea 50%, #00c6fb 100%);
 }
 
@@ -44,8 +37,8 @@ body.night {
     background: linear-gradient(135deg, #050b14 0%, #101f32 50%, #1b2d42 100%);
 }
 
-body>h1 {
-    margin-top: 70px;
+body > h1 {
+    margin-top: 50px;
     color: white;
     background-color: rgba(0, 0, 0, 0.14);
     padding: 8px 20px;
@@ -58,25 +51,18 @@ body>h1 {
     align-items: center;
     gap: 5px;
     overflow-y: hidden;
-    max-width: 346px;
+    width: 346px;
+    max-width: 90vw;
     max-height: 60px;
     border-radius: 20px;
     background-color: rgb(63, 189, 147);
     color: rgb(26, 26, 26);
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
-
-    transition-duration: 1s;
-    transition-property: all;
-    transform-style: ease;
+    transition: all 1s ease;
 }
 
 #menu-box.active {
-    max-height: 346px;
-}
-
-.menu-big {
-    width: 330px;
-    height: 374px;
+    max-height: 400px;
 }
 
 #menu-box.sunny {
@@ -100,70 +86,58 @@ body>h1 {
 }
 
 #input-box {
-    text-align: center;
-    margin: 3px 0 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 8px 0;
 }
 
-#input-box>img {
-    margin: 0 0 0 6px;
-    width: 30px;
-    height: 30px;
+#input-box > img {
+    width: 26px;
+    height: 26px;
     filter: invert();
-    transform: translateY(10px);
 }
 
 #cidade-input {
-    width: 160px;
-    height: 20px;
+    width: 150px;
+    height: 28px;
     border-radius: 10px;
     border: none;
-    padding: 6px 5px;
+    padding: 0 8px;
     background-color: rgba(0, 0, 0, 0.14);
     color: rgb(240, 240, 240);
     outline: none;
+    box-sizing: border-box;
 }
 
 #cidade-input::placeholder {
-    color: rgba(255, 255, 255, 0.603);
-    border: none;
-}
-
-#cidade-input:active {
-    color: white;
-}
-
-#cidade-input::after {
-    border: 1px solid #005bea;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 #buscar-button {
-    margin: 0 10px 0 0;
-    width: 70px;
+    width: 65px;
+    height: 28px;
     border: none;
     border-radius: 10px;
     color: white;
     background-color: rgba(0, 0, 0, 0.14);
-    height: 30px;
+    cursor: pointer;
 }
 
 #buscar-button:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-#weather-info>h2,
-p {
-    margin: 8px;
+#weather-info > h2, p {
+    margin: 6px;
 }
 
 #weather-info {
-    margin: 10px;
+    margin: 8px;
     border-radius: 15px;
     background-color: rgba(0, 0, 0, 0.06);
-
-    transition-duration: 1s;
-    transition-property: all;
-    transition-delay: 0;
-    transform-style: ease;
+    padding: 4px 12px;
 }
 
 #weather-box {
@@ -172,145 +146,99 @@ p {
     align-items: center;
     background-color: rgba(0, 0, 0, 0.06);
     border-radius: 15px;
+    padding: 0 10px;
 }
 
-#weather-box>h2 {
+#weather-box > h2 {
     margin: 0;
-    padding: 0 10px 0 0;
 }
 
-#weather-box>img {
-    width: 50px;
+#weather-box > img {
+    width: 45px;
 }
 
 #weather-details-box {
     display: flex;
     justify-content: center;
-    flex-wrap: nowrap;
-    flex-direction: row;
-    gap: 25px;
+    gap: 15px;
 }
 
 .weather-details {
-    margin: 0;
     padding: 5px;
     width: 85px;
     background-color: rgba(0, 0, 0, 0.06);
     border-radius: 15px;
 }
 
-.weather-details>p {
+.weather-details > p {
     margin: 0;
 }
 
 #cards-container {
     display: flex;
-    justify-content: space-around;
-    width: 94%;
+    justify-content: center;
+    width: 100%;
     margin: 5px 0 8px 0;
-    gap: 8px;
+    gap: 6px;
+    box-sizing: border-box;
+    padding: 0 5px;
 }
 
 .wkcards {
     border-radius: 10px;
-    width: 80px;
-    height: 60px;
+    width: 62px;
+    height: 58px;
     background-color: rgba(0, 0, 0, 0.15);
     display: flex;
-    flex-wrap: nowrap;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-
-    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
 .wkcards.active {
-    border: 2px solid #ffffff9a;
-    background-color: rgba(255, 255, 255, 0.151);
+    border: 2px solid #ffffff;
+    background-color: rgba(255, 255, 255, 0.25);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     transform: translateY(-2px);
 }
 
 .wkcards:hover {
     border: 1px solid white;
-    height: 66px;
-    width: 84px;
-    transform: translateY(-4px);
+    transform: translateY(-3px);
 }
 
-.wkcards>img {
-    width: 40px;
-    height: 40px;
+.wkcards > img {
+    width: 32px;
+    height: 32px;
 }
 
 .cardname {
-    transform: translateY(8px);
+    font-size: 0.75rem;
+    transform: translateY(4px);
 }
 
 .cardtemp {
-    transform: translateY(-9px);
+    font-size: 0.75rem;
+    transform: translateY(-4px);
 }
 
-@media (max-width: 500px) {
-    #menu-box {
-        width: 300px;
-        height: auto;
-        gap: 10px;
-        scrollbar-width: none;
-        overflow-x: hidden;
-    }
-
-    #weather-details-box {
-        flex-direction: row;
-        gap: 10px;
-    }
-
-    #input-box {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        margin: 8px 0;
-    }
-
-    #cidade-input {
-        margin: 0;
-    }
-
-    #cards-container {
-        gap: 10px;
-    }
-
-    #weather-box {
-        background-color: rgba(0, 0, 0, 0.06);
-        border-radius: 15px;
-    }
-
-    #input-box>img {
-        margin: 0 0 0 6px;
-        width: 30px;
-        height: 30px;
-        filter: invert();
-        transform: translateY(0px);
-    }
-
-    
-}
-
-/* PAINEL LATERAL EM GLASSMORPHISM */
+/* =========================================================
+   PAINEL DE HORÁRIOS - PADRÃO (DESKTOP - VERTICAL À DIREITA)
+   ========================================================= */
 #side-time-panel {
     position: fixed;
     right: 25px;
     top: 50%;
     transform: translateY(-50%);
     width: 80px;
-    height: 220px;
-    background: rgba(0, 0, 0, 0.25);
+    height: 260px;
+    background: rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 20px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     display: flex;
@@ -320,14 +248,20 @@ p {
     padding: 15px 10px;
     color: white;
     z-index: 100;
-    transition: all 0.5s ease-in-out;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    box-sizing: border-box;
 }
 
-/* Estado Oculto do Painel */
 #side-time-panel.hidden {
     opacity: 0;
     pointer-events: none;
     transform: translateY(-50%) translateX(100px);
+}
+
+.panel-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .panel-title {
@@ -340,68 +274,101 @@ p {
 #selected-time {
     font-weight: 700;
     font-size: 1.1rem;
-    margin-bottom: 5px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin-top: 2px;
 }
 
-/* WRAPPER DO SLIDER VERTICAL */
 .slider-wrapper {
-    height: 160px;
+    position: relative;
+    height: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Estilização do Slider na Vertical */
 #time-slider {
     -webkit-appearance: none;
     appearance: none;
-    writing-mode: bt-lr;
-    /* IE/Edge */
     writing-mode: vertical-lr;
-    /* Navegadores Modernos */
     width: 6px;
-    height: 150px;
-    background: rgba(255, 255, 255, 0.25);
+    height: 140px;
+    background: rgba(255, 255, 255, 0.3);
     border-radius: 10px;
     outline: none;
     cursor: pointer;
 }
 
-/* Botão do Slider (Thumb) */
 #time-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     cursor: pointer;
-    transition: transform 0.2s ease, background 0.2s ease;
-}
-
-#time-slider::-webkit-slider-thumb:hover {
-    transform: scale(1.25);
-    background: #e0e0e0;
 }
 
 .time-range-labels {
+    position: absolute;
+    right: -30px;
+    height: 140px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
     font-size: 0.7rem;
-    opacity: 0.7;
-    margin-top: 5px;
+    opacity: 0.8;
 }
 
-/* Responsividade para telas menores */
+/* =========================================================
+   PAINEL DE HORÁRIOS - MOBILE (HORIZONTAL NA PARTE INFERIOR)
+   ========================================================= */
 @media (max-width: 650px) {
     #side-time-panel {
-        right: 10px;
-        width: 65px;
-        height: 280px;
-        padding: 10px 5px;
+        right: auto;
+        left: 50%;
+        top: auto;
+        bottom: 25px;
+        transform: translateX(-50%);
+        width: 88vw;
+        max-width: 340px;
+        height: auto;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 18px;
+        gap: 15px;
+    }
+
+    #side-time-panel.hidden {
+        transform: translate(-50%, 40px);
+        opacity: 0;
+    }
+
+    .slider-wrapper {
+        height: auto;
+        flex: 1;
+        flex-direction: column;
+    }
+
+    #time-slider {
+        writing-mode: horizontal-tb;
+        -webkit-appearance: auto;
+        width: 100%;
+        height: 6px;
+    }
+
+    #time-slider::-webkit-slider-thumb {
+        width: 18px;
+        height: 18px;
+    }
+
+    .time-range-labels {
+        position: static;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 6px;
+        right: auto;
     }
 }

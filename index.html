@@ -14,18 +14,19 @@
 <body class="sunny">
     <h1>Weather App</h1>
 
-    <!-- PAINEL LATERAL DE HORÁRIOS -->
+    <!-- PAINEL LATERAL / INFERIOR DE HORÁRIOS -->
     <div id="side-time-panel" class="hidden">
-        <span class="panel-title">Horário</span>
-        <span id="selected-time">12:00</span>
-        
-        <div class="slider-wrapper">
-            <input type="range" id="time-slider" min="0" max="1" value="0" step="1" orient="vertical">
+        <div class="panel-header">
+            <span class="panel-title">Horário</span>
+            <span id="selected-time">12:00</span>
         </div>
         
-        <div class="time-range-labels">
-            <span id="time-min">06:00</span>
-            <span id="time-max">00:00</span>
+        <div class="slider-wrapper">
+            <input type="range" id="time-slider" min="0" max="1" value="0" step="1">
+            <div class="time-range-labels">
+                <span id="time-min">06:00</span>
+                <span id="time-max">00:00</span>
+            </div>
         </div>
     </div>
 
