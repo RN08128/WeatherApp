@@ -11,40 +11,44 @@ const weatherDescription = document.getElementById("weather-description");
 
 const weatherDetails = document.getElementById("weather-details-box");
 const infoBox = document.getElementById("weather-info");
-
-const errorBox = document.getElementById("error-box");
-const errorMessage = document.getElementById("error-message");
 const weatherBox = document.getElementById("weather-box");
-
 const weekContainer = document.getElementById("cards-container");
+
+// Elementos do Painel Lateral
+const sideTimePanel = document.getElementById("side-time-panel");
+const timeSlider = document.getElementById("time-slider");
+const selectedTimeLabel = document.getElementById("selected-time");
+const timeMinLabel = document.getElementById("time-min");
+const timeMaxLabel = document.getElementById("time-max");
 
 const clicksnd = document.createElement("audio");
 clicksnd.src = "sound/clicksound.mp3";
 
 infoBox.style.display = 'none';
 
+let groupedForecasts = {}; 
+let currentSelectedDay = "";
+let currentDayHourlyForecasts = [];
 
 async function checkWeather(city) {
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric&lang=pt_br`;
 
     try {
-        const response = await fetch(url)
-
+        const response = await fetch(url);
         const data = await response.json();
-        const currentData = data.list[0];
-        updateWeatherTheme(currentData);
-        console.log(data);
+
+        if (data.cod !== "200") {
+            throw new Error("Cidade não encontrada");
+        }
+
+        // Agrupa todas as previsões da API pela data (YYYY-MM-DD)
+        groupedForecasts = groupForecastsByDay(data.list);
 
         menuBox.classList.add("active");
-
-        weatherIcon.src = `https://openweathermap.org/img/wn/${currentData.weather[0].icon}@2x.png`
-
         cityName.innerText = `${data.city.name}, ${data.city.country}`;
 
-        let temp = currentData.main.temp;
-        temperature.innerText = temp.toFixed(0) + "°C";
-
-        document.getElementById("weather-details-box").innerHTML = `<div class="weather-details">
+        document.getElementById("weather-details-box").innerHTML = `
+            <div class="weather-details">
                 <p>Vento</p>
                 <span id="wind"></span>
             </div>
@@ -53,120 +57,192 @@ async function checkWeather(city) {
                 <span id="humidity"></span>
             </div>`;
 
-        const wind = document.getElementById("wind");
-        const humidity = document.getElementById("humidity");
-
-        weatherDescription.innerText = `${currentData.weather[0].description}`;
-
-        humidity.innerText = `${currentData.main.humidity}%`;
-
-        let windvalue = (currentData.wind.speed) * 3.6;
-        wind.innerText = windvalue.toFixed(1) + " km/h";
-
         weekContainer.style.display = "flex";
         weatherBox.style.display = "flex";
         weatherDetails.style.display = "flex";
-
         infoBox.style.display = "block";
 
-        displayForecast(data.list);
+        // Exibe os cards de preview e seleciona o primeiro dia por padrão
+        const availableDays = Object.keys(groupedForecasts);
+        displayForecastCards(availableDays);
+        
+        if (availableDays.length > 0) {
+            selectDay(availableDays[0]);
+        }
 
         cityInput.value = "";
         cityInput.focus();
 
     } catch (error) {
         menuBox.classList.remove("active");
+        sideTimePanel.classList.add("hidden");
         console.error("Erro ao buscar dados do clima", error);
-        alert("Erro ao buscar! Verifique a conexão ou tente novamente mais tarde");
+        alert("Erro ao buscar! Verifique o nome da cidade.");
 
         weatherBox.style.display = "none";
         weatherDetails.style.display = "none";
         weekContainer.style.display = "none";
         infoBox.style.display = 'none';
+        
         weatherIcon.src = "";
         cityName.innerText = "";
         temperature.innerText = "";
         weatherDescription.innerText = "";
-        humidity.innerText = "";
-        wind.innerText = "";
-        menuBox.classList.add("sunny");
-        document.body.classList.add("sunny");
+        menuBox.className = "sunny deactive";
+        document.body.className = "sunny";
         document.getElementById("weather-details-box").innerHTML = "";
     }
 }
 
-function displayForecast(forecastList) {
+// Organiza as leituras por dia no formato "YYYY-MM-DD"
+function groupForecastsByDay(list) {
+    const groups = {};
+    list.forEach(item => {
+        const dateKey = item.dt_txt.split(" ")[0];
+        if (!groups[dateKey]) {
+            groups[dateKey] = [];
+        }
+        groups[dateKey].push(item);
+    });
+    return groups;
+}
+
+// Seleciona o dia ativo e recarrega os horários no Slider
+function selectDay(dateKey) {
+    currentSelectedDay = dateKey;
+    currentDayHourlyForecasts = groupedForecasts[dateKey] || [];
+
+    if (currentDayHourlyForecasts.length === 0) return;
+
+    // Destaca o card ativo
+    document.querySelectorAll(".wkcards").forEach(card => {
+        if (card.dataset.date === dateKey) {
+            card.classList.add("active");
+        } else {
+            card.classList.remove("active");
+        }
+    });
+
+    // Exibe o painel lateral
+    sideTimePanel.classList.remove("hidden");
+
+    // Reconfigura o Slider para a quantidade de horários do dia selecionado
+    timeSlider.max = currentDayHourlyForecasts.length - 1;
+    timeSlider.value = 0;
+
+    const firstHour = getFormattedHour(currentDayHourlyForecasts[0].dt_txt);
+    const lastHour = getFormattedHour(currentDayHourlyForecasts[currentDayHourlyForecasts.length - 1].dt_txt);
+    
+    if (timeMinLabel) timeMinLabel.innerText = firstHour;
+    if (timeMaxLabel) timeMaxLabel.innerText = lastHour;
+
+    renderWeatherForSelectedHour(0);
+}
+
+function getFormattedHour(dateTimeStr) {
+    const dateObj = new Date(dateTimeStr);
+    const hours = String(dateObj.getHours()).padStart(2, '0');
+    const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+    return `${hours}:${minutes}`;
+}
+
+function renderWeatherForSelectedHour(index) {
+    const selectedData = currentDayHourlyForecasts[index];
+    if (!selectedData) return;
+
+    selectedTimeLabel.innerText = getFormattedHour(selectedData.dt_txt);
+
+    weatherIcon.src = `https://openweathermap.org/img/wn/${selectedData.weather[0].icon}@2x.png`;
+    temperature.innerText = selectedData.main.temp.toFixed(0) + "°C";
+    weatherDescription.innerText = selectedData.weather[0].description;
+
+    const wind = document.getElementById("wind");
+    const humidity = document.getElementById("humidity");
+    if (wind && humidity) {
+        humidity.innerText = `${selectedData.main.humidity}%`;
+        let windValue = selectedData.wind.speed * 3.6;
+        wind.innerText = windValue.toFixed(1) + " km/h";
+    }
+
+    updateWeatherTheme(selectedData);
+}
+
+function displayForecastCards(dayKeys) {
     weekContainer.innerHTML = "";
 
-    const dailyData = forecastList.filter(item => item.dt_txt.includes("12:00:00"));
+    // Pega até 4 ou 5 dias da lista agrupada
+    dayKeys.slice(0, 5).forEach(dateKey => {
+        const dayItems = groupedForecasts[dateKey];
+        // Busca a leitura próxima do meio-dia ou a primeira disponível
+        const representative = dayItems.find(item => item.dt_txt.includes("12:00:00")) || dayItems[0];
+        
+        const dateObj = new Date(representative.dt_txt);
+        let dayName = dateObj.toLocaleDateString("pt-BR", { weekday: "short" }).replace(".", "");
 
-    dailyData.slice(0, 4).forEach(day => {
-
-        const date = new Date(day.dt_txt);
-
-        let dayName = date.toLocaleDateString("pt-BR", { weekday: "short" });
-        dayName = dayName.replace(".", "");
-
-        // Criar o HTML do card
-        const cardHTML = `
-            <div class="wkcards">
-                <span class="cardname">${dayName}</span>
-                <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}.png" alt="Clima-imagem">
-                <span class="cardtemp">${day.main.temp.toFixed(0)}°C</span>
-            </div>
+        const card = document.createElement("div");
+        card.className = "wkcards";
+        card.dataset.date = dateKey;
+        card.innerHTML = `
+            <span class="cardname">${dayName}</span>
+            <img src="https://openweathermap.org/img/wn/${representative.weather[0].icon}.png" alt="Clima-imagem">
+            <span class="cardtemp">${representative.main.temp.toFixed(0)}°C</span>
         `;
 
-        // Injetar o card dentro do container do HTML
-        weekContainer.innerHTML += cardHTML;
+        card.addEventListener("click", () => {
+            clicksnd.play();
+            selectDay(dateKey);
+        });
+
+        weekContainer.appendChild(card);
     });
 }
 
 function updateWeatherTheme(data) {
     document.body.classList.remove("sunny", "rainy", "cloudy", "night");
-    menuBox.classList.remove("sunny", "rainy", "cloudy", "night")
+    menuBox.classList.remove("sunny", "rainy", "cloudy", "night");
 
     const mainCondition = data.weather[0].main;
     const iconCode = data.weather[0].icon;
 
-    //noite
     if (iconCode.endsWith("n")) {
         document.body.classList.add("night");
-        menuBox.classList.add("night")
+        menuBox.classList.add("night");
         return;
     }
 
-    //dia
     switch (mainCondition) {
         case "Clear":
             document.body.classList.add("sunny");
-            menuBox.classList.add("sunny")
+            menuBox.classList.add("sunny");
             break;
         case "Rain":
         case "Drizzle":
         case "Thunderstorm":
             document.body.classList.add("rainy");
-            menuBox.classList.add("rainy")
+            menuBox.classList.add("rainy");
             break;
         case "Clouds":
             document.body.classList.add("cloudy");
-            menuBox.classList.add("cloudy")
+            menuBox.classList.add("cloudy");
             break;
         default:
             document.body.classList.add("sunny");
-            menuBox.classList.add("sunny")
+            menuBox.classList.add("sunny");
             break;
     }
 }
+
+timeSlider.addEventListener("input", (e) => {
+    renderWeatherForSelectedHour(e.target.value);
+});
 
 searchBtn.addEventListener("click", () => {
     clicksnd.play();
     if (cityInput.value.trim() !== "") {
         checkWeather(cityInput.value);
-        
     } else {
         alert("Insira um nome válido!");
     }
-
 });
 
 cityInput.addEventListener("keypress", (event) => {
@@ -177,5 +253,4 @@ cityInput.addEventListener("keypress", (event) => {
         clicksnd.play();
         alert("Insira um nome válido!");
     }
-
 });

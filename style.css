@@ -226,6 +226,13 @@ p {
     transition: all 0.3s ease-in-out;
 }
 
+.wkcards.active {
+    border: 2px solid #ffffff9a;
+    background-color: rgba(255, 255, 255, 0.151);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+}
+
 .wkcards:hover {
     border: 1px solid white;
     height: 66px;
@@ -276,5 +283,110 @@ p {
     #weather-box {
         background-color: rgba(0, 0, 0, 0.06);
         border-radius: 15px;
+    }
+}
+
+/* PAINEL LATERAL EM GLASSMORPHISM */
+#side-time-panel {
+    position: fixed;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80px;
+    height: 220px;
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 10px;
+    color: white;
+    z-index: 100;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Estado Oculto do Painel */
+#side-time-panel.hidden {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-50%) translateX(100px);
+}
+
+.panel-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+#selected-time {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* WRAPPER DO SLIDER VERTICAL */
+.slider-wrapper {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilização do Slider na Vertical */
+#time-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    writing-mode: bt-lr; /* IE/Edge */
+    writing-mode: vertical-lr; /* Navegadores Modernos */
+    width: 6px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+}
+
+/* Botão do Slider (Thumb) */
+#time-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+#time-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+    background: #e0e0e0;
+}
+
+.time-range-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    font-size: 0.7rem;
+    opacity: 0.7;
+    margin-top: 5px;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 650px) {
+    #side-time-panel {
+        right: 10px;
+        width: 65px;
+        height: 280px;
+        padding: 10px 5px;
     }
 }
