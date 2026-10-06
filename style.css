@@ -64,17 +64,17 @@ body>h1 {
     background-color: rgb(63, 189, 147);
     color: rgb(26, 26, 26);
     box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.25);
-    
+
     transition-duration: 1s;
     transition-property: all;
     transform-style: ease;
 }
 
-#menu-box.active{
+#menu-box.active {
     max-height: 346px;
 }
 
-.menu-big{
+.menu-big {
     width: 330px;
     height: 374px;
 }
@@ -104,7 +104,7 @@ body>h1 {
     margin: 3px 0 12px 0;
 }
 
-#input-box > img{
+#input-box>img {
     margin: 0 0 0 6px;
     width: 30px;
     height: 30px;
@@ -132,7 +132,7 @@ body>h1 {
     color: white;
 }
 
-#cidade-input::after{
+#cidade-input::after {
     border: 1px solid #005bea;
 }
 
@@ -245,7 +245,7 @@ p {
     height: 40px;
 }
 
-.cardname{
+.cardname {
     transform: translateY(8px);
 }
 
@@ -258,6 +258,8 @@ p {
         width: 300px;
         height: 360px;
         gap: 10px;
+        scrollbar-width: none;
+        overflow-x: hidden;
     }
 
     #weather-details-box {
@@ -268,8 +270,9 @@ p {
     #input-box {
         display: flex;
         align-items: center;
-        margin-top: 10px;
-        gap: 10px;
+        justify-content: center;
+        gap: 8px;
+        margin: 8px 0;
     }
 
     #cidade-input {
@@ -284,6 +287,16 @@ p {
         background-color: rgba(0, 0, 0, 0.06);
         border-radius: 15px;
     }
+
+    #input-box>img {
+        margin: 0 0 0 6px;
+        width: 30px;
+        height: 30px;
+        filter: invert();
+        transform: translateY(0px);
+    }
+
+    
 }
 
 /* PAINEL LATERAL EM GLASSMORPHISM */
@@ -328,7 +341,7 @@ p {
     font-weight: 700;
     font-size: 1.1rem;
     margin-bottom: 5px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* WRAPPER DO SLIDER VERTICAL */
@@ -343,8 +356,10 @@ p {
 #time-slider {
     -webkit-appearance: none;
     appearance: none;
-    writing-mode: bt-lr; /* IE/Edge */
-    writing-mode: vertical-lr; /* Navegadores Modernos */
+    writing-mode: bt-lr;
+    /* IE/Edge */
+    writing-mode: vertical-lr;
+    /* Navegadores Modernos */
     width: 6px;
     height: 150px;
     background: rgba(255, 255, 255, 0.25);
