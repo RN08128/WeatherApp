@@ -256,7 +256,7 @@ p {
 @media (max-width: 500px) {
     #menu-box {
         width: 300px;
-        height: 360px;
+        height: auto;
         gap: 10px;
         scrollbar-width: none;
         overflow-x: hidden;
